@@ -1,0 +1,83 @@
+# compiler
+#F90      = /usr/local/bin/gfortran
+F90      = /opt/local/bin/gfortran-mp-4.5
+#F90      = /opt/local/bin/openmpif90
+
+
+# linker
+LD       = $(F90)
+
+# global compilation flags
+FFLAGS   = -march=core2 -msse3 -fno-second-underscore -ffree-form -ffree-line-length-none
+
+# verbose compilation flags
+VFLAGS   = -v # displays invocations of compiler, assembler and linker
+VFLAGS  += -Minform=inform # display all error messages (inform, warn, severe and fatal)
+VFLAGS  += -Minfo=all # display all information (accel,inline,ipa,loop,lre,mp,opt,par,vect)
+VFLAGS  += -Mneginfo=all # display all negative information (see above)
+#VFLAGS  += -Mkeepasm # preserve assembly language file
+
+# force preprocessing flags
+PFLAGS   = -cpp # perform preprocessing for all source files
+
+
+# optimization flags (FOPT0=none, FOPT1=strong, FOPT2=strongest)
+FOPT0    = -O0 # inhibit any optimizations
+
+FOPT1    = -O2 # aggressive global optimization
+#FOPT1   += -Mvect=noaltcode # generate only vectorized code
+#FOPT1   += -Msmartalloc # enable optimized malloc routines
+#FOPT1   += -Mprefetch=distance:8 # set prefetch-ahead distance in cache lines
+#FOPT1   += -Mipa=fast,inline # interprocedural analysis (automatically inline)
+
+FOPT2    = $(FOPT1)
+
+# debugging flags
+FDBG     = -O0 # inhibit any optimizations
+FDBG    += -fbacktrace      # JS, online-doc
+FDBG    += -fdump-core      # JS, online-doc
+#FDBG    += -fcheck=all # run-time checks
+FDBG    += -g # generate information for debugger (disable optimizations)
+#FDBG    += -Mstandard # check standard conformance
+
+# global linking flags
+LFLAGS   = -fconvert=big-endian # swap byte-order for unformatted input/output (== -Mbyteswapio)
+
+# global libraries and includes
+LIB      = 
+
+INC      = -I.
+INC     += -I$(ROOT)/$(SRCDIR)  
+INC     += -I/opt/local/include/openmpi
+
+# optimized flags, libraries and includes
+OPTL     = 
+OPTI     = 
+
+# debugging flags, libraries and includes
+DBGL     = 
+DBGI     = 
+
+# MPI library
+MPIL     =
+MPII     = -D__MPICH2
+
+# Database library
+DBL      = 
+DBI      = 
+
+# Grib1 library
+GRIBL    = 
+GRIBI    = 
+
+# NetCDF library
+NETCDFL  = -L/opt/local/lib -lnetcdff -lnetcdf
+NETCDFI  = -I/opt/local/include
+#NETCDFL  = -L/usr/local/netcdf-4.1.2/lib -lnetcdff -lnetcdf
+#NETCDFI  = -I/usr/local/netcdf-4.1.2/include
+
+
+# Synsat library
+RTTOV7L  = -L/Users/juergsc/cosmo/lib/rttov7_synsat -lRTTOV7_synsat
+RTTOV7I  = 
+
